@@ -76,7 +76,7 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
 
     public void updateInfo(){
         SName.setText(studentUser.Name);
-        SPhone.setText(studentUser.Phone);
+        SPhone.setText(studentUser.Phone.replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1) $2-$3"));
         SMajor.setText(studentUser.Major);
         SGYear.setText(studentUser.GradYear + "");
         SGPA.setText(studentUser.GPA.toString());

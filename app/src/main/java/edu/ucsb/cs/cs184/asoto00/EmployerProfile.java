@@ -27,6 +27,7 @@ public class EmployerProfile extends AppCompatActivity implements View.OnClickLi
     private TextView CECompany;
     private TextView CEPhone;
     private Button SignOutButton2;
+
     protected RecyclerView recyclerView;
     protected StudentListAdapter mAdapter;
     protected ArrayList<String> allStudents;
@@ -36,6 +37,7 @@ public class EmployerProfile extends AppCompatActivity implements View.OnClickLi
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
     private EmployerUser employerUser;
+    public static final String FRAGMENT_PDF_RENDERER= "pdf_renderer";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +87,7 @@ public class EmployerProfile extends AppCompatActivity implements View.OnClickLi
     }
 
     private void initDataSet() {
+        // This needs to be ArrayList<StudentUsers>
         allStudents = new ArrayList<>();
         allStudents.add("Yessenia Valencia");
         allStudents.add("Alex Soto");
@@ -95,7 +98,7 @@ public class EmployerProfile extends AppCompatActivity implements View.OnClickLi
     public void updateEmployerInfo(){
         CEName.setText(employerUser.Name);
         CECompany.setText(employerUser.Company);
-        CEPhone.setText(employerUser.PhoneNumber);
+        CEPhone.setText(employerUser.PhoneNumber.replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1) $2-$3"));
 
     }
 
@@ -108,9 +111,10 @@ public class EmployerProfile extends AppCompatActivity implements View.OnClickLi
             finish();
         }
         if(v == addStudentButton) {
+            // Testing PDFFragment
+            // getSupportFragmentManager().beginTransaction().add(R.id.employer_profile_id, new PdfFragment(), FRAGMENT_PDF_RENDERER).commit();
             startActivity(new Intent(this, ScannerActivity.class));
             finish();
         }
-
     }
 }
