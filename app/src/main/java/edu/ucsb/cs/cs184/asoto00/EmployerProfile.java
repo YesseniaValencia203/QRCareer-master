@@ -1,5 +1,6 @@
 package edu.ucsb.cs.cs184.asoto00;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -10,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -18,6 +20,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 
@@ -38,6 +42,7 @@ public class EmployerProfile extends AppCompatActivity implements View.OnClickLi
     private DatabaseReference databaseReference;
     private EmployerUser employerUser;
     public static final String FRAGMENT_PDF_RENDERER= "pdf_renderer";
+    final Activity activity = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +108,34 @@ public class EmployerProfile extends AppCompatActivity implements View.OnClickLi
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        //Intent intent = new Intent(this, InfoList.class);
+        if (result != null) {
+            if (result.getContents() == null) {
+                Toast.makeText(this, "You Cancelled the scanning", Toast.LENGTH_LONG).show();
+
+            } else {
+                String uid = result.getContents();
+              //  startActivity(new Intent(this, StudentListAdapter.class));
+
+                //startActivity( new Intent(getApplicationContext(), InfoList.class ));
+                Toast.makeText(this, uid, Toast.LENGTH_LONG).show();
+
+
+
+               // finish();
+            }
+        }
+
+        else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+
+
+    @Override
     public void onClick(View v) {
         if( v == SignOutButton2){
             firebaseAuth.signOut();
@@ -113,8 +146,16 @@ public class EmployerProfile extends AppCompatActivity implements View.OnClickLi
         if(v == addStudentButton) {
             // Testing PDFFragment
             // getSupportFragmentManager().beginTransaction().add(R.id.employer_profile_id, new PdfFragment(), FRAGMENT_PDF_RENDERER).commit();
-            startActivity(new Intent(this, ScannerActivity.class));
-            finish();
+            IntentIntegrator integrator = new IntentIntegrator(activity);
+            integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
+            integrator.setPrompt("Scan");
+            integrator.setCameraId(0);
+            integrator.setBeepEnabled(true);
+            integrator.setBarcodeImageEnabled(false);
+            integrator.initiateScan();
+
+//            startActivity(new Intent(this, ScannerActivity.class));
+//            finish();
         }
     }
 }
