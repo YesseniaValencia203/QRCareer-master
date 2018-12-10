@@ -1,6 +1,7 @@
 package edu.ucsb.cs.cs184.asoto00;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +17,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
+
+import java.util.Arrays;
 
 public class StudentProfile extends AppCompatActivity implements View.OnClickListener {
 
@@ -25,12 +33,15 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
     private TextView SGYear;
     private TextView SGPA;
     private Button SignOutButton;
-
-    private ImageView QRCode;
+    private Button genBtn;
+    private ImageView qrImage;
+    //private ImageView QRCode;
 
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
     private StudentUser studentUser;
+
+    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +49,7 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_student_profile);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = firebaseAuth.getCurrentUser();
+         user = firebaseAuth.getCurrentUser();
 
 
         if(user == null){
@@ -61,16 +72,19 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
             });
         }
 
-        QRCode = findViewById(R.id.qrImage);
+
         SName = (TextView) findViewById(R.id.SName);
         SPhone = (TextView) findViewById(R.id.SPhone);
         SMajor = (TextView) findViewById(R.id.SMajor);
         SGYear = (TextView) findViewById(R.id.SGYear);
         SGPA = (TextView) findViewById(R.id.SGPA);
+        genBtn= (Button) findViewById(R.id.generatorButton);
+        qrImage= (ImageView) findViewById(R.id.qrImage);
 
         SignOutButton = (Button) findViewById(R.id.SignOutButton);
 
         SignOutButton.setOnClickListener(this);
+        genBtn.setOnClickListener(this);
 
     }
 
@@ -90,6 +104,22 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
 
             startActivity(new Intent(this, Sign_In.class));
             finish();
+        }
+        if (v == genBtn) {
+//            for(int i=0; i<text2Qr.length ; i++){
+//                r[i] = text2Qr[i].getText().toString().trim();
+//            }
+            MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+            try {
+               // String str = Arrays.toString(r);
+                // String s = user.
+                BitMatrix bitMatrix = multiFormatWriter.encode(user.getUid(), BarcodeFormat.QR_CODE, 200, 200);
+                BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+                Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
+                qrImage.setImageBitmap(bitmap);
+            } catch (WriterException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

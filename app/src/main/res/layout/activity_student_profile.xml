@@ -6,42 +6,50 @@
     android:layout_height="match_parent"
     tools:context=".StudentProfile">
 
-    <TextView
-        android:id="@+id/SMajor"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/studentphone"
-        android:textAlignment="textStart"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SPhone" />
+        android:layout_height="wrap_content">
+
+
 
     <TextView
         android:id="@+id/SName"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/student_name"
         android:textAlignment="textStart"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myProfileTitle"
-        tools:layout_editor_absoluteY="19dp" />
+        />
 
+        <TextView
+            android:id="@+id/SPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="student_phone"
+            android:textAlignment="textStart"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+             />
+        <TextView
+            android:id="@+id/SMajor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="studentphone"
+            android:textAlignment="textStart"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+             />
     <TextView
         android:id="@+id/SGYear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/studentgraduationyear"
+        android:text="studentgraduationyear"
         android:textAlignment="textStart"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SMajor" />
+        />
 
     <TextView
         android:id="@+id/SGPA"
@@ -51,65 +59,53 @@
         android:textAlignment="textStart"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SGYear" />
+/>
 
-    <TextView
-        android:id="@+id/SPhone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/student_phone"
-        android:textAlignment="textStart"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SName" />
-
+        <Button
+            android:id="@+id/generatorButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Generate QR"
+            />
     <ImageView
         android:id="@+id/qrImage"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/SignOutButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/QRProfileTitle"
-        app:srcCompat="@android:drawable/btn_star" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+       />
 
     <Button
         android:id="@+id/SignOutButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/sign_out"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:text="sign_out"
+       />
 
-    <TextView
-        android:id="@+id/myProfileTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/my_profile"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textAlignment="center"
-        android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/SName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!--<TextView-->
+        <!--android:id="@+id/myProfileTitle"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/my_profile"-->
+        <!--android:textAppearance="@style/TextAppearance.AppCompat.Large"-->
+        <!--android:textAlignment="center"-->
+        <!--android:textColor="@color/common_google_signin_btn_text_dark_focused"-->
+        <!--android:textStyle="bold"-->
+        <!--app:layout_constraintBottom_toTopOf="@+id/SName"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
 
-    <TextView
-        android:id="@+id/QRProfileTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/qrcode_to_my_profile"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/SGPA" />
+    <!--<TextView-->
+        <!--android:id="@+id/QRProfileTitle"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/qrcode_to_my_profile"-->
+        <!--android:textAlignment="center"-->
+        <!--android:textAppearance="@style/TextAppearance.AppCompat.Large"-->
+        <!--android:textColor="@color/common_google_signin_btn_text_dark_focused"-->
+        <!--android:textStyle="bold"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@id/SGPA" />-->
+
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
